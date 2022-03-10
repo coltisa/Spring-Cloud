@@ -1,0 +1,38 @@
+server:
+  port: 9000
+spring:
+  cloud:
+    consul:
+      host: consul_server.az
+      port: 8500
+      discovery:
+        register: true
+        prefer-ip-address: true
+        health-check-path: /actuator/health
+    gateway:
+      routes:
+        - id: default_route # 默认的路由，会转发到bing
+          uri: https://www.bing.com
+          predicates:
+            - Path=/default
+        - id: service_provider
+          uri: lb://service-provider
+          predicates:
+            - Path=/service-provider/{segment}
+          filters:
+            - SetPath=/{segment}
+            - name: Hystrix # 熔断器械机制，如果服务提供者有故障则直接转发到相关故障页面
+              args:
+                name: service-provider-fallback
+                fallbackUri: forward:/service-provider-error
+            - name: Retry
+              args:
+                retries: 3
+                statuses: BAD_GATEWAY,BAD_REQUEST
+      default-filters:
+        - name: Hystrix
+          args:
+            name: fallbackcmd
+            fallbackUri: forward:/default-error
+  application:
+    name: gateway
