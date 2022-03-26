@@ -48,6 +48,33 @@ public interface ServiceProviderRemote {
 
 
 
+### 配置文件读取启动说明
+
+在运行JAR的过程中可以在运行目录内带上配置文件，以直接读取启动目录下面的application.properties文件，优先级高于jar中写死的application.properties
+
+
+
+之前的版本还能似乎读取bootstrap.yml，SpringCloud 2.4版本之后不再优先读取bootstrap文件，导致bootstrap不起作用，加入依赖后指定位置启动配置文件可以实现
+
+[实际测试中还是不行，还是得通过下面指定位置的方法]
+
+```
+		<dependency>
+			<groupId>org.springframework.cloud</groupId>
+			<artifactId>spring-cloud-starter-bootstrap</artifactId>
+		</dependency>
+```
+
+
+
+带上--spring.config.location参数指定位置，指定位置可以带bootstrap.yml格式
+
+```
+java -jar spring-cloud-consul-client-0.0.1-SNAPSHOT.jar --spring.config.location=application.properties
+```
+
+
+
 ### spring-cloud-gateway
 
 Spring Cloud Gateway项目，通过Consul联动，对请求到后端的服务进行负载，后端模拟的服务分别为cloud-provider和cloud-provider-second

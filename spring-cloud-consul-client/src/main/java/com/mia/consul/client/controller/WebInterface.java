@@ -2,6 +2,7 @@ package com.mia.consul.client.controller;
 
 import com.mia.consul.client.service.ServiceProviderRemote;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -23,4 +24,13 @@ public class WebInterface {
     public String Default(){
         return "Hello this is a default message in case there is no message for you";
     }
+
+    @Value("${SingleValue}")
+    private String SingleValue;
+
+    @RequestMapping(value = "/re")
+    public String ReadVal() {
+        return "Define Value is :" + SingleValue;
+    }
+
 }

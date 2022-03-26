@@ -10,6 +10,12 @@ public class SpringCloudConsulClientApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SpringCloudConsulClientApplication.class, args);
+		System.out.print("Now we are started.");
 	}
 
 }
+
+
+
+
+
