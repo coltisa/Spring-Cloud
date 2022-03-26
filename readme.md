@@ -67,7 +67,7 @@ public interface ServiceProviderRemote {
 
 
 
-带上--spring.config.location参数指定位置，指定位置可以带bootstrap.yml格式
+带上--spring.config.location参数指定位置，指定位置可以带bootstrap.yml格式，测试的时候可以把根目录下面的bootstrap.yml放到打包后的target目录下面带上下面的命令运行
 
 ```
 java -jar spring-cloud-consul-client-0.0.1-SNAPSHOT.jar --spring.config.location=application.properties

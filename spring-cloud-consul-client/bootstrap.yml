@@ -1,0 +1,13 @@
+server:
+  port: 9003    
+spring:
+  application:
+    name: "spring-cloud-consul-client"
+  cloud:
+    consul:
+      port: 8500
+      host: "consul_server.az"
+      discovery:
+        register: false
+
+SingleValue: "我是小猪"
